@@ -4,7 +4,7 @@ import { Logger } from "@slack/logger";
 
 export class DeepLApi {
   private authKey: string;
-  private axiosInstance: AxiosInstance;
+  // private axiosInstance: AxiosInstance;
   private logger: Logger;
   constructor(authKey: string, logger: Logger) {
     this.authKey = authKey;
