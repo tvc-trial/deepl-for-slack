@@ -4,7 +4,8 @@ on:
   push:
     tags:
       - v*
-
+    branches:
+      - ci-test
 jobs:
   build-and-push:
 
@@ -33,3 +34,28 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  create-pull-request:
+
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+
+    steps:
+    - name: Checkout manifest file
+      uses: actions/checkout@v2
+      with:
+        repository: {{ secrets.MANIFEST_REPO }}
+        token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+        path: ./
+    - name: Update manifest file
+      env: 
+        SED_ECR_REPO_URI: ${{ secrets.SED_ECR_REPO_URL }}
+      run: sed -i "s/imgae: ${SED_ECR_REPO_URI}:.*/image: ${SED_ECR_REPO_URI}:${IMAGE_TAG}/;" service.yaml
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+        commit-message: "release: image version upate"
+          branch: auto/image-version-update
+          title: "release: image version upate"
+          body: This PR updates container image to the latest version
