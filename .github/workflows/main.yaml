@@ -36,7 +36,7 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   create-pull-request:
-　　needs: build-and-push
+    needs: build-and-push
     runs-on: ubuntu-18.04
     timeout-minutes: 300
 
