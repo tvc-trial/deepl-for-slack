@@ -47,10 +47,13 @@ jobs:
         repository: {{ secrets.MANIFEST_REPO }}
         token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
         path: ./
+
     - name: Update manifest file
       env: 
         SED_ECR_REPO_URI: ${{ secrets.SED_ECR_REPO_URL }}
-      run: sed -i "s/imgae: ${SED_ECR_REPO_URI}:.*/image: ${SED_ECR_REPO_URI}:${IMAGE_TAG}/;" service.yaml
+      run: |
+        sed -i "s/imgae: ${SED_ECR_REPO_URI}:.*/image: ${SED_ECR_REPO_URI}:${IMAGE_TAG}/;" service.yaml
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
