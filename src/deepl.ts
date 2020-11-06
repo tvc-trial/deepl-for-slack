@@ -6,7 +6,7 @@ export class DeepLApi {
   private authKey: string;
   private axiosInstance: AxiosInstance;
   private logger: Logger;
-	constructor(authKey: string, logger: Logger) {
+  constructor(authKey: string, logger: Logger) {
     this.authKey = authKey;
     this.logger = logger;
     this.axiosInstance = axios.create({
