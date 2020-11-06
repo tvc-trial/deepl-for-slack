@@ -49,10 +49,8 @@ jobs:
         SED_ECR_REPO_URI: ${{ secrets.SED_ECR_REPO_URL }}
         IMAGE_TAG:  ${{ steps.build-push.outputs.image-tag }}
       run: |
-        pwd
-        ls -l
         echo $IMAGE_TAG
-        sed -i "s/imgae: ${SED_ECR_REPO_URI}:.*/image: ${SED_ECR_REPO_URI}:${IMAGE_TAG}/;" service.yaml
+        sed -i "s/image: .*:.*/image: "$SED_ECR_REPO_URI":$IMAGE_TAG/;" service.yaml
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
