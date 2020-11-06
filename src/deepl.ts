@@ -17,7 +17,7 @@ export class DeepLApi {
   }
 
   async translate(text: string, targetLanguage: string): Promise<string | null> {
-	  return this.axiosInstance({
+    return this.axiosInstance({
       url: "/translate",
       data: qs.stringify({
         auth_key: this.authKey,
