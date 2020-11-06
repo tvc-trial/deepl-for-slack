@@ -46,7 +46,7 @@ jobs:
 
     - name: Update manifest file
       env: 
-        SED_ECR_REPO_URI: ${{ secrets.SED_ECR_REPO_URL }}
+        SED_ECR_REPO_URI: ${{ secrets.SED_ECR_REPO_URI }}
         IMAGE_TAG:  ${{ steps.build-push.outputs.image-tag }}
       run: |
         echo $IMAGE_TAG
