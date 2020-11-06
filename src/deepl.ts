@@ -4,16 +4,15 @@ import { Logger } from "@slack/logger";
 
 export class DeepLApi {
   private authKey: string;
-  // private axiosInstance: AxiosInstance;
+  private axiosInstance: AxiosInstance;
   private logger: Logger;
-  constructor(authKey: string, logger: Logger) {
+	constructor(authKey: string, logger: Logger) {
     this.authKey = authKey;
     this.logger = logger;
-    // 一時機能無効
-    // this.axiosInstance = axios.create({
-    //   baseURL: 'https://api.deepl.com/v2',
-    //   timeout: 30000,
-    // });
+    this.axiosInstance = axios.create({
+      baseURL: 'https://api.deepl.com/v2',
+      timeout: 30000,
+    });
   }
 
   async translate(text: string, targetLanguage: string): Promise<string | null> {
